@@ -8,7 +8,8 @@
   metosin/reitit-ring {:mvn/version "0.5.5"}
   metosin/reitit-middleware {:mvn/version "0.5.5"}
   integrant {:mvn/version "0.8.0"}
-  integrant/repl {:mvn/version "0.3.1"}}
+  integrant/repl {:mvn/version "0.3.1"}
+  com.github.prestancedesign/inertia-clojure {:mvn/version "0.2.0"}}
  :aliases
  {:dev {:extra-paths ["dev"]}
   :server {:main-opts ["-m" "usermanager.system"]}}}

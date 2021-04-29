@@ -1,21 +1,15 @@
 (ns usermanager.handler
-  (:require [reitit.ring :as ring]
+  (:require [inertia.middleware :as inertia]
+            [reitit.ring :as ring]
             [reitit.ring.middleware.parameters :as parameters]
-            [ring.util.response :as resp]
-            [usermanager.controllers.user :as user-ctl]
-            [ring.middleware.keyword-params :refer [wrap-keyword-params]]))
+            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
+            [selmer.parser :as html]
+            [usermanager.controllers.user :as user-ctl]))
 
-(defn my-middleware
-  "This middleware runs for every request and can execute before/after logic.
+(def asset-version "1")
 
-  If the handler returns an HTTP response (like a redirect), we're done.
-  Else we use the result of the handler to render an HTML page."
-  [handler]
-  (fn [req]
-    (let [resp (handler req)]
-      (if (resp/response? resp)
-        resp
-        (user-ctl/render-page resp)))))
+(defn template [data-page]
+  (html/render-file "layouts/default.html" {:page data-page}))
 
 (def middleware-db
   {:name ::db
@@ -38,10 +32,10 @@
       ["/delete/:id" {:get {:parameters {:path {:id int?}}}
                       :handler user-ctl/delete-by-id}]]]
     {:data {:db db
-            :middleware [my-middleware
-                         parameters/parameters-middleware
+            :middleware [parameters/parameters-middleware
                          wrap-keyword-params
-                         middleware-db]}})
+                         middleware-db
+                         [inertia/wrap-inertia template asset-version]]}})
    (ring/routes
     (ring/create-resource-handler
      {:path "/"})

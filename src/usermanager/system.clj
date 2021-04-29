@@ -1,6 +1,9 @@
+;; copyright (c) 2021 Michaël Salihi, all rights reserved
+
 (ns usermanager.system
   (:require [integrant.core :as ig]
             [next.jdbc :as jdbc]
+            [next.jdbc.result-set :as rs]
             [ring.adapter.jetty :refer [run-jetty]]
             [usermanager.handler :as handler]
             [usermanager.model.user-manager :refer [populate]]))
@@ -19,7 +22,7 @@
 (defmethod ig/init-key :database.sql/connection [_ db-spec]
   (let [conn (jdbc/get-datasource db-spec)]
     (populate conn (:dbtype db-spec))
-    conn))
+    (jdbc/with-options conn {:builder-fn rs/as-unqualified-maps})))
 
 (defmethod ig/halt-key! :adapter/jetty [_ server]
   (.stop server))
