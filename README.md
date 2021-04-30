@@ -9,17 +9,19 @@ You can check the commit diff of what it took to change the app to SPA (server s
 For convenience, the repository already contains the bundled front-end [resources/public/assets/js/app.js](resources/public/assets/js), so it can be launched quickly.
 For those who want to play with the client side, just go to the [front](front/) directory and run `npm i && npx shadow-cljs watch app`.
 
+All Reagent components are located in this [file](front/src/reagent/inertia.cljs).
+
 ## Launch the demo
 
 Clone the repo, `cd` into it, then follow below to _Run the Application_.
 
-You can launch the application by directly calling the namespace which contains the =-main= function in an terminal.
+You can launch the application by directly calling the namespace which contains the `-main` function in an terminal.
 
 ### Run the Application
 
     $ clj -M -m usermanager.system
 
-or more conveniently, using an alias configured in =deps.edn= file.
+or more conveniently, using an alias configured in `deps.edn` file.
 
     $ clj -A:server
 
