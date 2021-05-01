@@ -8,17 +8,17 @@
 
 (defn reset-changes
   [_]
-  (inertia/render "reset" {:message "The change tracker has been reset."}))
+  (inertia/render :reset {:message "The change tracker has been reset."}))
 
 (defn default [_]
-  (inertia/render "default" {:message (str "Welcome to the User Manager application demo!"
-                                           "This uses just Reitit, Ring, and Selmer.")}))
+  (inertia/render :default {:message (str "Welcome to the User Manager application demo!"
+                                          "This uses just Reitit, Ring, and Selmer.")}))
 
 (defn get-users
   "Render the list view with all the users in the addressbook."
   [req]
   (let [users (model/get-users (:db req))]
-    (inertia/render "user-list" {:users users})))
+    (inertia/render :user-list {:users users})))
 
 (defn edit
   "Display the add/edit form.
@@ -29,8 +29,8 @@
   (let [db (:db req)
         user (when-let [id (get-in req [:path-params :id])]
                (model/get-user-by-id db id))]
-    (inertia/render "user-form" {:user user
-                                 :departments (model/get-departements db)})))
+    (inertia/render :user-form {:user user
+                                :departments (model/get-departements db)})))
 
 (defn save
   "This works for saving new users as well as updating existing users, by
