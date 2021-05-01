@@ -23,7 +23,7 @@ You can launch the application by directly calling the namespace which contains 
 
 or more conveniently, using an alias configured in `deps.edn` file.
 
-    $ clj -A:server
+    $ clj -M:run
 
 Now acces the app at: [http://localhost:3000/](http://localhost:3000/).
 

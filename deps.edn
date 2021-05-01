@@ -12,4 +12,4 @@
   com.github.prestancedesign/inertia-clojure {:mvn/version "0.2.0"}}
  :aliases
  {:dev {:extra-paths ["dev"]}
-  :server {:main-opts ["-m" "usermanager.system"]}}}
+  :run {:main-opts ["-m" "usermanager.system"]}}}
